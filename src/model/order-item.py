@@ -1,4 +1,5 @@
 from typing import Optional
+
 class OrderItem:
     def __init__(self,
                 order_item_id : Optional[int],
