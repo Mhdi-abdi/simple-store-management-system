@@ -3,6 +3,8 @@ from model.customer import Customer
 
 class CustomerRepository:
 
+    allowed_fields = ["first_name", "last_name", "email", "city", "country", "phone", "postal_code"]
+
     @staticmethod
     def _row_to_customer(row):
         return Customer(
@@ -135,6 +137,10 @@ class CustomerRepository:
 
 
     def update_customer(self, customer_id, field, new_value):
+
+        if field not in self.allowed_fields:
+            raise ValueError(f"Invalid field: {field}")
+
         query = f"""
             Update customers
             Set {field} = %s

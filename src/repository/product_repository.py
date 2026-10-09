@@ -3,6 +3,8 @@ from model.product import Product
 
 class ProductRepository:
 
+    allowed_field = ["product_name", "price", "stock_quantity", "description", "is_active"]
+
     @staticmethod
     def _row_to_product(row):
         return Product(
@@ -131,6 +133,10 @@ class ProductRepository:
 
 
     def update_product(self, product_id, field, new_value):
+
+        if field not in self.allowed_fields:
+            raise ValueError(f"Invalid field: {field}")
+
         query = f"""
             Update products
             set {field} = %s
