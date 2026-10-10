@@ -3,7 +3,7 @@ from model.customer import Customer
 
 class CustomerRepository:
 
-    allowed_fields = ["first_name", "last_name", "email", "city", "country", "phone", "postal_code"]
+    ALLOWED_FIELDS = ("first_name", "last_name", "email", "city", "country", "phone", "postal_code")
 
     @staticmethod
     def _row_to_customer(row):

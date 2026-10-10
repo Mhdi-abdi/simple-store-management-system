@@ -3,7 +3,7 @@ from model.product import Product
 
 class ProductRepository:
 
-    allowed_field = ["product_name", "price", "stock_quantity", "description", "is_active"]
+    ALLOWED_FIELDS = ("product_name", "price", "stock_quantity", "description", "is_active")
 
     @staticmethod
     def _row_to_product(row):
