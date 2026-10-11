@@ -33,7 +33,9 @@ CREATE TABLE IF NOT EXISTS `products` (
   `description` VARCHAR(255) NULL,
   `is_active` TINYINT NOT NULL DEFAULT 1,
   PRIMARY KEY (`product_id`),
-  UNIQUE INDEX `product_name_UNIQUE` (`product_name`)
+  UNIQUE INDEX `product_name_UNIQUE` (`product_name`),
+  CONSTRAINT `chk_products_price` CHECK (`price` > 0),
+  CONSTRAINT `chk_products_stock_quantity` CHECK (`stock_quantity` >= 0)
 ) ENGINE = InnoDB;
 
 
@@ -79,5 +81,7 @@ CREATE TABLE IF NOT EXISTS `order_items` (
     FOREIGN KEY (`product_id`)
     REFERENCES `products` (`product_id`)
     ON DELETE RESTRICT
-    ON UPDATE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `chk_order_items_unit_price` CHECK (`unit_price` > 0),
+  CONSTRAINT `chk_order_items_quantity` CHECK (`quantity` > 0)
 ) ENGINE = InnoDB;
