@@ -3,7 +3,7 @@ from model.product import Product
 
 class ProductRepository:
 
-    ALLOWED_FIELDS = ("product_name", "price", "stock_quantity", "description", "is_active")
+    ALLOWED_FIELDS = ("product_name", "price", "description")
 
     @staticmethod
     def _row_to_product(row):
@@ -134,7 +134,7 @@ class ProductRepository:
 
     def update_product(self, product_id, field, new_value):
 
-        if field not in self.allowed_fields:
+        if field not in self.ALLOWED_FIELDS:
             raise ValueError(f"Invalid field: {field}")
 
         query = f"""
@@ -178,3 +178,44 @@ class ProductRepository:
                 cursor.close()
             if conn:
                 conn.close()
+
+    def reduce_stock(self, product_id, quantity, cursor):
+        if quantity <= 0:
+            raise ValueError("quantity can not be zero or negative")         
+        query = """
+            Update products
+            Set stock_quantity = stock_quantity - %s
+            Where product_id = %s and stock_quantity >= %s
+            """
+        cursor.execute(query, (quantity, product_id, quantity))
+        row_count = cursor.rowcount
+        if row_count != 1:
+            raise Exception(
+                f"Insufficient stock for product {product_id} (requested: {quantity})."
+            )
+
+    def increase_stock(self, product_id, quantity):
+        if quantity <= 0:
+            raise ValueError("quantity can not be zero or negative")
+        
+        query = """
+            Update products
+            Set stock_quantity = stock_quantity + %s
+            Where product_id = %s
+        """
+
+        conn = None
+        cursor = None
+        try:
+            conn = get_connection()
+            cursor = conn.cursor()
+            cursor.execute(query, (quantity, product_id))
+            conn.commit()
+        finally:
+            if cursor:
+                cursor.close()
+            if conn:
+                conn.close()
+
+
+        
