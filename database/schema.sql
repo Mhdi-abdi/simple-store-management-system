@@ -46,7 +46,7 @@ CREATE TABLE IF NOT EXISTS `products` (
 CREATE TABLE IF NOT EXISTS `orders` (
   `order_id` INT NOT NULL AUTO_INCREMENT,
   `customer_id` INT NOT NULL,
-  `status` VARCHAR(45) NOT NULL,
+  `status` VARCHAR(45) NOT NULL DEFAULT 'registered',
   `order_date` DATETIME NOT NULL,
   `total_price` DECIMAL(9,2) NOT NULL,
   INDEX `fk_orders_customers_idx` (`customer_id`),
