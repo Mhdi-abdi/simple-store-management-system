@@ -138,7 +138,7 @@ class CustomerRepository:
 
     def update_customer(self, customer_id, field, new_value):
 
-        if field not in self.allowed_fields:
+        if field not in self.ALLOWED_FIELDS:
             raise ValueError(f"Invalid field: {field}")
 
         query = f"""
