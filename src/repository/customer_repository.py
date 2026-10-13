@@ -1,5 +1,5 @@
-from database.connection import get_connection
-from model.customer import Customer
+from src.database.connection import get_connection
+from src.model.customer import Customer
 
 class CustomerRepository:
 

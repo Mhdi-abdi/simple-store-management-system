@@ -1,5 +1,5 @@
-from database.connection import get_connection
-from model.order import Order
+from src.database.connection import get_connection
+from src.model.order import Order
 
 class OrderRepository:
 

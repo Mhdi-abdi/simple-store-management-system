@@ -1,5 +1,5 @@
-from database.connection import get_connection
-from model.product import Product
+from src.database.connection import get_connection
+from src.model.product import Product
 
 class ProductRepository:
 
