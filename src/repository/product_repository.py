@@ -1,5 +1,6 @@
 from src.database.connection import get_connection
 from src.model.product import Product
+from src.exceptions import InsufficientStockError
 
 class ProductRepository:
 
@@ -190,7 +191,7 @@ class ProductRepository:
         cursor.execute(query, (quantity, product_id, quantity))
         row_count = cursor.rowcount
         if row_count != 1:
-            raise Exception(
+            raise InsufficientStockError(
                 f"Insufficient stock for product {product_id} (requested: {quantity})."
             )
 
