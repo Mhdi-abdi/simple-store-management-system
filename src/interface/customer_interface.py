@@ -70,7 +70,7 @@ def show_customer_menu():
 
 
 def show_customer_by_id():
-    customer_id = ask_id("Enter customer id to customer")
+    customer_id = ask_id("Enter customer id to show")
     if customer_id is None:
         return
     try:
