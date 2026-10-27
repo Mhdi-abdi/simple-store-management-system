@@ -29,7 +29,7 @@ def main():
                     print("\nYour choice must be a number between 1 and 4")
             except mysql.connector.Error as error:
                 print("\nA database error occurred. Please check the connection and try again.")
-                print(f"Details: {error}")  # only for development, remove later
+                print(f"Details: {error}")
 
     except KeyboardInterrupt:
         print()
