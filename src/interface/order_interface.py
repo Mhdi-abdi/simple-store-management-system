@@ -71,9 +71,9 @@ def create_order():
         else:
             product_list[product_id] = quantity
 
-        print("\n1. Yes")
-        print("2. No")
-        request = input("\nDo you need any other products (Enter a number other than 1 to cancel): ").strip()
+        print("\n1. Add another product")
+        print("2. Review order")
+        request = input("\nEnter your choice (1 to add more, anything else to review the order): ").strip()
         if request == "1": 
             continue 
         else:
