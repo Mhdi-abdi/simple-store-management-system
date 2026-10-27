@@ -1,36 +1,40 @@
+import mysql.connector
+
 from src.interface.customer_interface import customer_interface
 from src.interface.product_interface import product_interface
 from src.interface.order_interface import order_interface
 
+
 def main():
-    print("\n--Welcome to my srore--")
-    while True:
-        print("1. Customer")
-        print("2. Product")
-        print("3. Order")
-        print("4. Quit")
-        choice = input("\nPlease Enter one choice (Press Enter to cancel): ").strip()
+    print("\n--Welcome to my store--")
+    try:
+        while True:
+            print("\n1. Customer")
+            print("2. Product")
+            print("3. Order")
+            print("4. Quit")
+            choice = input("\nPlease enter one choice (Press Enter to quit): ").strip()
 
-        if choice == "":
-            print("GoodBye!")
-            break
+            if choice in ("", "4"):
+                break
 
-        if not choice.isdigit() or int(choice) not in range(1, 5):
-            print("\nYour choice must be a number 1 to 4")
-            continue
+            try:
+                if choice == "1":
+                    customer_interface()
+                elif choice == "2":
+                    product_interface()
+                elif choice == "3":
+                    order_interface()
+                else:
+                    print("\nYour choice must be a number between 1 and 4")
+            except mysql.connector.Error as error:
+                print("\nA database error occurred. Please check the connection and try again.")
+                print(f"Details: {error}")  # only for development, remove later
 
-        elif choice == "1":
-            customer_interface()
+    except KeyboardInterrupt:
+        print()
 
-        elif choice == "2":
-            product_interface()
-
-        elif choice == "3":
-            order_interface()
-
-        else:
-            print("\ngoodBye!")
-            break
+    print("\nGoodbye!")
 
 
 if __name__ == "__main__":
