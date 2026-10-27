@@ -28,11 +28,10 @@ def ask_quantity():
         if not quantity.isdigit():
             print("Quantity must be a number.")
             continue
-        quantity = int(quantity)
-        if quantity <= 0:
+        if int(quantity) <= 0:
             print("quantity must be a number greater than 0")
             continue
-        return quantity
+        return int(quantity)
 
 
 def create_order():
@@ -72,9 +71,9 @@ def create_order():
         else:
             product_list[product_id] = quantity
 
-        print("1. Yes")
+        print("\n1. Yes")
         print("2. No")
-        request = input("Do you need any other products (Enter a number other than 1 to cancel): ").strip()
+        request = input("\nDo you need any other products (Enter a number other than 1 to cancel): ").strip()
         if request == "1": 
             continue 
         else:
@@ -82,13 +81,15 @@ def create_order():
 
     try:
         if not product_list:
-            print("Order cancelled")
+            print("\nOrder cancelled")
             return
         
         all_price = 0
         print(f"\nCustomer ID: {customer_id}|Customer Name = {customer.first_name + ' ' + customer.last_name}")
-        
+
+        items = []
         for id, quantity in product_list.items():
+            items.append([id, quantity])
             every_product = product_service.get_product_by_id(id)
             all_price += every_product.price * quantity
             print(f"\nProduct ID: {id}|Product Name: {every_product.product_name}|Quantity: {quantity}|Price: {every_product.price}")
@@ -97,23 +98,23 @@ def create_order():
         while True:
             print("\n1. Accept Order list")
             print("2. Cancel order")
-            choice = input("Please Enter one choice between(1, 2) (Press Enter to cancel all orders): ")
+            choice = input("\nPlease Enter one choice between(1, 2) (Press Enter to cancel all orders): ")
             
             if choice == "":
-                print("Order Cancelled")
+                print("\nOrder Cancelled")
                 return
             if not choice.isdigit():
-                print("Please enter a number between 1 to 2")
+                print("\nPlease enter a number between 1 to 2")
                 continue
             elif choice == "1":
-                order_id = order_service.create(customer_id, product_list)
-                print(f"Order created successfully with ID: {order_id}")
+                order_id = order_service.create(customer_id, items)
+                print(f"\nOrder created successfully with ID: {order_id}")
                 return
             elif choice == "2":
-                print("Order Cancelled")
+                print("\nOrder Cancelled")
                 return           
             else:
-                print("Enter number between 1 to 2 or Press Enter to cancel")
+                print("\nEnter number between 1 to 2 or Press Enter to cancel")
                 continue
     except AppError as error:
         print(f"ERROR: {error}")
@@ -322,3 +323,4 @@ def order_interface():
 
         else:
             break
+
