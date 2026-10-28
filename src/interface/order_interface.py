@@ -3,21 +3,11 @@ from src.service.order_service import OrderService
 from src.service.product_service import ProductService
 from src.service.customer_service import CustomerService
 from src.interface.product_interface import show_product_table
+from src.interface.helpers import ask_id
 
 order_service= OrderService()
 product_service = ProductService()
 customer_service = CustomerService()
-
-
-def ask_id(prompt):
-    while True:
-        value = input(f"{prompt} (press Enter to cancel): ").strip()
-        if value == "":
-            return None
-        if not value.isdigit():
-            print("ID must be a number.")
-            continue
-        return int(value)
 
 
 def ask_quantity():
