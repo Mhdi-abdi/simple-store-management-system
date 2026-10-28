@@ -56,8 +56,8 @@ On Windows, make sure **Add Python to PATH** is checked during the Python instal
 ### 1. Clone
 
 ```bash
-git clone https://github.com/Mhdi-abdi/<repository-name>.git
-cd <repository-name>
+git clone https://github.com/Mhdi-abdi/simple-store-management-system.git
+cd simple-store-management-system
 ```
 
 ### 2. Create a virtual environment and install dependencies
@@ -76,9 +76,19 @@ Run the schema with an administrative MySQL account (for example `root`):
 mysql -u root -p < database/schema.sql
 ```
 
+> **Linux (Ubuntu/Debian):** the MySQL `root` account often uses socket authentication, so the command above fails with `ERROR 1698 (28000): Access denied for user 'root'@'localhost'`. In that case run it with `sudo` instead (no password is needed):
+>
+> ```bash
+> sudo mysql < database/schema.sql
+> ```
+
 ### 4. Create a database user for the app
 
-Open the MySQL shell as an administrator (`mysql -u root -p`) and run:
+Open the MySQL shell as an administrator and run:
+
+```bash
+mysql -u root -p                # Linux (Ubuntu/Debian): sudo mysql
+```
 
 ```sql
 CREATE USER 'store_app'@'localhost' IDENTIFIED BY 'your_password';
