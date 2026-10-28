@@ -168,7 +168,7 @@ def customer_interface():
         print("5. Delete customer")
         print("6. Back")
 
-        choice = input("\nPlease enter one choice: ")
+        choice = input("\nPlease enter one choice: ").strip()
         if not choice.isdigit() or int(choice) not in range(1, 7):
             print("Your choice must be a number between 1 to 6")
             continue

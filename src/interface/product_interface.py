@@ -73,7 +73,7 @@ def show_product_by_id():
 
 
 def show_product_by_name():
-    name = input("Enter product name (Press Enter to cancel)").strip()
+    name = input("Enter product name (Press Enter to cancel): ").strip()
     if name == "":
         return
     try:
@@ -211,7 +211,7 @@ def product_interface():
         print("6. Active/Deactive product")
         print("7. Add stock")
         print("8. Back")
-        choice = input("\nPlease enter one choice: ")
+        choice = input("\nPlease enter one choice: ").strip()
         if not choice.isdigit() or int(choice) not in range(1, 9):
             print("Your choice must be a number between 1 to 8")
             continue
